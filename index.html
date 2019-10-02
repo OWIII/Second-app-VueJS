@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>VueJS</title>
+  <link rel="stylesheet" href="CSS/bootstrap.min.css">
+  <link rel="stylesheet" href="CSS/styles.css">
+  <script src="JS/vue.js"></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    <form class="form">
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+      <div class="block" v-for="item in info">
+        <label>{{ item.name }}</label>
+        <input type="text" class="input" v-model="item.value">
+      </div>
+      <input type="submit" value="Send Data" class="btn btn-success"></input>
+    </form>
+    <div class="done">
+      <h1>All done!</h1>
+      <table class="table table-bordered">
+        <tr v-for="item in info">
+          <td class="first-column">{{ item.name }}</td>
+          <td class="second-column">{{ item.value }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <script src="JS/scripts.js"></script>
+</body>
+
+</html>
