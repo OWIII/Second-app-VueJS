@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>VueJS</title>
+  <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
   <link rel="stylesheet" href="CSS/bootstrap.min.css">
   <link rel="stylesheet" href="CSS/styles.css">
   <script src="JS/vue.js"></script>
@@ -13,20 +14,29 @@
 
 <body>
   <div class="wrapper">
-    <form class="form">
+    <form class="form" @submit.prevent="formSubmited = true" v-if="!formSubmited">
       <div class="progress">
-        <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" :style="progressWidth"></div>
       </div>
-      <div class="block" v-for="item in info">
-        <label>{{ item.name }}</label>
-        <input type="text" class="input" v-model="item.value">
+      <div class="block" v-for="(item, index) in info">
+        <div class="block-text">
+          <label>{{ item.name }}</label>
+          <span v-if="controls[index].activated">
+            <i class="fas"
+               :class="controls[index].error ? 'fa-times-circle' : 'fa-check-circle'">
+            </i>
+          </span>
+        </div>
+        <input type="text" class="input"
+               v-bind:value="item.value"
+               @input="onInput(index, $event.target.value)">
       </div>
-      <input type="submit" value="Send Data" class="btn btn-success"></input>
+      <input type="submit" value="Send Data" class="btn btn-success" :disabled="done < info.length"></input>
     </form>
-    <div class="done">
+    <div class="done" v-else>
       <h1>All done!</h1>
       <table class="table table-bordered">
-        <tr v-for="item in info">
+        <tr v-for="(item, index) in info">
           <td class="first-column">{{ item.name }}</td>
           <td class="second-column">{{ item.value }}</td>
         </tr>

@@ -27,11 +27,41 @@ let app = new Vue({
         pattern: /.+/
       }
     ],
-    text: 'Привет'
+    controls: [],
+    formSubmited: false
+  },
+  beforeMount() {
+    for(let i = 0; i < this.info.length; i++) {
+      this.controls.push({
+          error: true,
+          activated: false
+      });
+    }
   },
   methods: {
-    isNameValid() {
-      return this.item.pattern.test(this.item.value);
+    onInput(index, value) {
+      let data = this.info[index];
+      let control = this.controls[index];
+
+      data.value = value;
+      control.error = !data.pattern.test(value);
+      control.activated = true;
+    }
+  },
+  computed: {
+    done() {
+      let done = 0;
+      for(let i = 0; i < this.info.length; i++) {
+        if(!this.controls[i].error) {
+          done++;
+        }
+      }
+      return done;
+    },
+    progressWidth() {
+      return {
+        width: (100 / this.info.length * this.done) + '%'
+      }
     }
   }
 });

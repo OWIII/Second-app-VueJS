@@ -74,6 +74,22 @@ label {
   word-wrap: break-word;
 }
 
+.block-text {
+  display: flex;
+}
+
+.block-text span {
+  margin-left: 10px;
+}
+
+.fa-times-circle {
+  color: red;
+}
+
+.fa-check-circle {
+  color: #12b818;
+}
+
 @media (max-width: 425px) {
   .form {
     width: 100%;
